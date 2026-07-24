@@ -956,6 +956,7 @@ fb_dirsync_cpp_unittest(
         "//folly:sorted_vector_types",
         "//folly:traits",
         "//folly/container:iterator",
+        "//folly/memory:uninitialized_memory_hacks",
         "//folly/portability:gtest",
     ],
     external_deps = [
