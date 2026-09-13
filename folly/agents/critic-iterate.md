@@ -64,10 +64,12 @@ them:
 - `draft-only` or `initial draft`: stop after the first complete artifact,
   before author critique.
 - `c-i-0`: run the General Cycle to convergence, with no external review.
-- `c-i-K` or `critic-iterate-K` (`K > 0`): set the task's external-review budget
-  to `K` rounds.
-- `c-i+K` (`K > 0`): if the previous turn ended because the review budget was
-  exhausted, extend review by `K` rounds.
+
+In these bullets, `K > 0` is a review budget, not a required round count. Finish
+when the closure rules permit, even if rounds remain.
+
+- `c-i-K` or `critic-iterate-K`: set the external-review budget to `K` rounds.
+- `c-i+K`: after an `OutOfBudget` stop, add `K` rounds to that budget.
 
 ## Evidence
 
@@ -335,22 +337,21 @@ After each review round:
      each one directly and finish. Rewording prose is not mechanical.
    - If review budget remains, start another review round and return to step 1.
    - Otherwise, reread the finished draft.
+     - Start another review round despite the exhausted budget only when:
+       - later edits could cause an important misunderstanding or wrong action;
+         and
+       - no fresh reviewer checked or proposed the resulting meaning.
 
-     Start another review round only when:
-     - later edits could make the reader misunderstand something important or
-       take the wrong action; and
-     - no fresh reviewer checked or proposed the resulting meaning.
+       Tell the user first. When the round finishes, return to step 1 and
+       mention the extra round in the final debrief.
 
-     Tell the user before re-reviewing. When the round finishes, return to step
-     1. Mention any extra rounds in the final debrief.
+     - Otherwise, finish with a notice that starts with the exact text
+       `OutOfBudget:`:
 
-     Otherwise, finish with a notice that starts with the exact text
-     `OutOfBudget:`:
-
-     > OutOfBudget: This output may have easy-to-spot gaps because I ran out of
-     > review budget. Reply `c-i+K` to allow up to K more review rounds; later
-     > rounds usually yield smaller gains. The default is 1 round; personal
-     > rules may override it with `critic-iterate-N`.
+       > OutOfBudget: This output may have easy-to-spot gaps because I ran out
+       > of review budget. Reply `c-i+K` to allow up to K more review rounds;
+       > later rounds usually yield smaller gains. The default is 1 round;
+       > personal rules may override it with `critic-iterate-N`.
 
 Record the dispositions only in the accountability artifact. For other
 artifacts, take the better version, merge, or apply its findings.
