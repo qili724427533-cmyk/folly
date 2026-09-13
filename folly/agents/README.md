@@ -13,7 +13,8 @@ names.
 ## How do I use this directory?
 
 Rule packages are identified by `*.loader.md` files. Each loader lists brief
-trigger conditions for its rules. You'll need to add these to your rule file.
+trigger conditions for its rules. Read on to add these to your rule file. Then,
+read the [tutorial](TUTORIAL.md).
 
 ### Meta-internal installation
 
